@@ -1,13 +1,7 @@
 /*
 Troy Kubanka
 10/16/2021
-csc1710
-Program 2
-Path: ~/csc1710/program2/TroyKubanka_MortgageTable_Level95
-Chosen attempt level: Grade A (95% max)
-Compile: g++
-Execute: ./a.out
-In Program 2, I created an amortization table for a home mortgage, and included my program to calculate the monthly payment amount and include Private Mortgage Insurance (PMI). 
+Created an amortization table for a home mortgage, and included my program to calculate the monthly payment amount and include Private Mortgage Insurance (PMI). 
 */
 
 #include <iostream>
@@ -19,7 +13,7 @@ int main()
    int MonthlyPayments, PaymentNumber, i;
    double PurchasePrice, AnnualInterest, DownPayment, InterestRate, DP, loan, PMT, InterestPayment, InterestSum, PrincipalPayment, PrincipalBalance, PrincipalSum, PMI, PMICount, PMISum, base, expo, exponent; 
    
-   //User enters their data so that the program can make calculations and create a table
+   //User enters their data 
    cout << "We are going to create a mortgage calculator and table given your data! You will need to input your purchase price, annual interest rate, number of monthly payments, and your down payment percentage. Please enter all of your dollar amounts in US ($) dollars." << endl << endl << "First, enter your purchase price here, between $0 and $10000000: $";
    cin >> PurchasePrice;
    while(PurchasePrice <= 0 || PurchasePrice >= 10000000)
