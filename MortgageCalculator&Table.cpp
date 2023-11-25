@@ -50,37 +50,24 @@ int main()
    
    //Down payment percentage 
    if(DownPayment >= 0 && DownPayment < 5)
-   {
       PMI = 1.030; //percent
-   }
    else if(DownPayment >= 5 && DownPayment < 10)
-   {
       PMI = .875; //percent
-   }
    else if(DownPayment >= 10 && DownPayment < 15)
-   {
       PMI = .675; //percent
-   }
    else if(DownPayment >= 15 && DownPayment < 20)
-   {
       PMI = .375; //percent
-   }
    else
-   {
-      PMI = 0;
-   }    
+      PMI = 0; 
 
    //Calculation for the loan and monthly payment
    InterestRate = (1.000/12.000) * (AnnualInterest/100);
    DP = PurchasePrice - (PurchasePrice * (DownPayment/100));
    if(DownPayment == 0)
-   {
       loan = PurchasePrice;
-   }
    else
-   {
       loan = PurchasePrice - DP; 
-   } 
+
    base = (1+InterestRate);
    expo = (-MonthlyPayments);
    exponent = pow(base, expo);
@@ -90,9 +77,7 @@ int main()
 
    //line seperation 
    for(i = 0; i < 125; i++)
-   {
       cout << "-";
-   }
    //table
    cout << endl << endl << setw(73) << "Mortgage Table" << endl << setw(73) << "--------------" << endl << endl;
    cout << setw(5) << "Payment Number" << setw(30) << "Interest Payment" << setw(30) << "Principal Payment" << setw(30) << "Principal Balance" << setw(19) << "PMI" << endl;
@@ -105,7 +90,7 @@ int main()
    InterestSum = 0; 
    PrincipalSum = 0;
    cout << setw(14) << PaymentNumber << setw(90) << setprecision(2) << PrincipalBalance << endl;   
-   while(PrincipalBalance >= 0)
+   while(PrincipalBalance > 0)
    {
       PaymentNumber += 1;
       InterestPayment = (1.000/12)*(AnnualInterest/100)*PrincipalBalance;
@@ -113,13 +98,15 @@ int main()
       PrincipalPayment = PMT - InterestPayment;
       PrincipalSum += PrincipalPayment;   
       PrincipalBalance = PrincipalBalance - PrincipalPayment; 
-      cout << setw(14) << PaymentNumber << setw(30) << fixed << showpoint << setprecision(2) << InterestPayment << setw(30) << PrincipalPayment << setw(30) << PrincipalBalance << setprecision(3) << setw(20) << PMI << endl;    
-      if(PrincipalBalance < (.8*PurchasePrice))
-      {
-         PMI = 0;
+      if(PrincipalBalance<0){ // to adjust for last month so that Balance is accurate 
+         PrincipalPayment-=(PrincipalBalance*-1);
+         PrincipalBalance=0;
       }
-      else if(PrincipalBalance > (.8*PurchasePrice))
-      {
+      cout << setw(14) << PaymentNumber << setw(30) << fixed << showpoint << setprecision(2) << InterestPayment 
+           << setw(30) << PrincipalPayment << setw(30) << PrincipalBalance << setprecision(3) << setw(20) << PMI << endl;    
+      if(PrincipalBalance < (.8*PurchasePrice))
+         PMI = 0;
+      else if(PrincipalBalance > (.8*PurchasePrice)){
          ++PMICount;
          PMISum = loan * PMICount * (PMI/100);  
       }
